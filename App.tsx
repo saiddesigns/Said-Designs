@@ -25,6 +25,7 @@ import {
     PEOPLE_RETOUCH_PRESETS 
 } from './constants';
 import { BehanceIcon, CubeTransparentIcon, FacebookIcon, InstagramIcon, MagnifyingGlassIcon, PencilIcon, PhotoIcon, SparklesIcon, WhatsAppIcon, WifiOffIcon } from './components/Icons';
+import AccessPage from './components/AccessPage';
 
 
 const ProductStudio: React.FC = () => {
@@ -320,6 +321,7 @@ const ProductStudio: React.FC = () => {
 }
 
 const App: React.FC = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     type Tool = 'studio' | 'generate' | 'edit' | 'search';
     const [activeTool, setActiveTool] = useState<Tool>('studio');
     const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -363,6 +365,10 @@ const App: React.FC = () => {
             </button>
         )
     };
+
+    if (!isAuthenticated) {
+        return <AccessPage onSuccess={() => setIsAuthenticated(true)} />;
+    }
 
     return (
         <div className="min-h-screen w-full flex flex-col bg-[#0d061c]">
